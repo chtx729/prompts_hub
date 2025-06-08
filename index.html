@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase 待办事项</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>我的待办事项</h1>
+        <div id="auth-section">
+            <input type="email" id="email" placeholder="邮箱">
+            <input type="password" id="password" placeholder="密码">
+            <button id="sign-up">注册</button>
+            <button id="sign-in">登录</button>
+            <button id="sign-out" class="hidden">登出</button>
+        </div>
+        <section id="app" class="hidden">
+            <button id="sign-out-app">登出</button>
+            <h2>待办事项</h2>
+            <form id="todo-form">
+                <input type="text" id="task-input" placeholder="新待办事项">
+                <button type="submit">添加</button>
+            </form>
+            <ul id="todos-list"></ul>
+
+            <section id="storage-section" class="hidden">
+                <h3>文件存储</h3>
+                <input type="file" id="file-input">
+                <button id="upload-button">上传文件</button>
+                <div id="uploaded-files"></div>
+            </section>
+        </section>
+    </div>
+    <!-- 原来的 Supabase CDN 调用方式，已改为本地安装方式 -->
+     <!-- <script src="https://unpkg.com/@supabase/supabase-js@2"></script> -->
+     <!-- 引入本地安装的 Supabase UMD 文件 -->
+     <script src="./node_modules/@supabase/supabase-js/dist/umd/supabase.js"></script>
+     <script src="app.js"></script>
+</body>
+
+</html>

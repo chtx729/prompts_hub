@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase 待办事项</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>我的待办事项</h1>
+        <div id="auth-section">
+            <input type="email" id="email" placeholder="邮箱">
+            <input type="password" id="password" placeholder="密码">
+            <button id="sign-up">注册</button>
+            <button id="sign-in">登录</button>
+            <button id="sign-out" class="hidden">登出</button>
+        </div>
+        <div id="app" class="hidden">
+            <form id="todo-form">
+                <input type="text" id="task-input" placeholder="输入任务" required>
+                <button type="submit">添加</button>
+            </form>
+            <ul id="todos-list"></ul>
+        </div>
+        <div id="storage-section" class="hidden">
+            <h2>文件存储</h2>
+            <input type="file" id="file-input">
+            <button id="upload-button">上传文件</button>
+            <div id="uploaded-files"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

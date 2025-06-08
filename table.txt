@@ -1,0 +1,41 @@
+1. 在Supabase控制台创建两个表：
+profiles表（存储用户信息）：
+CREATE TABLE profiles (
+  id UUID REFERENCES auth.users PRIMARY KEY,
+  username TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+messages表（存储留言）：
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY,
+  user_id UUID REFERENCES profiles(id) NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+2. 启用RLS并设置策略：
+
+profiles表策略：
+-- 读取策略
+CREATE POLICY "允许所有人读取用户资料" ON profiles
+  FOR SELECT USING (true);
+
+-- 更新策略
+CREATE POLICY "允许用户更新自己的资料" ON profiles
+  FOR UPDATE USING (auth.uid() = id);
+
+3. 创建用于注册后自动创建profile的触发器（函数）：
+-- 创建函数
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+  RETURNS TRIGGER AS $$
+  BEGIN
+    INSERT INTO public.profiles (id, username)
+    VALUES (NEW.id, NEW.email); -- 用邮箱作为默认用户名
+    RETURN NEW;
+  END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 创建触发器
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW
+  EXECUTE FUNCTION public.handle_new_user();
