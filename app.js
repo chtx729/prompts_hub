@@ -1,11 +1,7 @@
-// 初始化 Supabase
-const supabaseUrl = 'https://qnqzoxkejxshsxvmprhs.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFucXpveGtlanhzaHN4dm1wcmhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwMDQ0NzMsImV4cCI6MjA2NDU4MDQ3M30.ZPBSdEAz-ncPOfAEwwYEJyd3cpF05U-hIQKyOZKCMaw';
-// 本地安装方式，但由于浏览器环境不支持裸模块导入，暂时改回 window.supabase 方式
-// import { createClient } from '@supabase/supabase-js';
-// const supabase = createClient(supabaseUrl, supabaseKey);
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
+// 初始化Supabase客户端
+const SUPABASE_URL = 'https://qnqzoxkejxshsxvmprhs.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFucXpveGtlanhzaHN4dm1wcmhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwMDQ0NzMsImV4cCI6MjA2NDU4MDQ3M30.ZPBSdEAz-ncPOfAEwwYEJyd3cpF05U-hIQKyOZKCMaw';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // DOM 元素
 const authSection = document.getElementById('auth-section');
@@ -24,6 +20,7 @@ const uploadedFilesDiv = document.getElementById('uploaded-files');
 // 检查当前用户
 async function checkUser() {
     const { data: { user } } = await supabase.auth.getUser();
+    console.log('当前用户:', user);
     if (user) {
         authSection.classList.add('hidden');
         appSection.classList.remove('hidden');
@@ -158,12 +155,15 @@ document.getElementById('sign-up').addEventListener('click', async () => {
 
 // 登录
 document.getElementById('sign-in').addEventListener('click', async () => {
+    console.log('登录按钮被点击！');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    console.log('邮箱:', email, '密码:', password);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
         alert(error.message);
     } else {
+        console.log('登录成功！');
         // 登录成功后才检查用户状态并切换界面
         checkUser();
     }
