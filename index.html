@@ -4,243 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>留言板 | Supabase</title>
-    <script src="https://unpkg.com/@supabase/supabase-js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        header {
-            background: linear-gradient(90deg, #4b6cb7, #182848);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .auth-container {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .auth-form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .input-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        button {
-            background: #4b6cb7;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            background: #365499;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .user-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background-color: #4b6cb7;
-            color: white;
-            border-radius: 5px;
-        }
-
-        .user-info button {
-            background-color: #ff6b6b;
-        }
-
-        .message-form {
-            background: #fff;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            resize: vertical;
-        }
-
-        .messages-container {
-            padding: 20px;
-        }
-
-        .message {
-            background: #f9f9f9;
-            border-left: 4px solid #4b6cb7;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-        }
-
-        .message:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .message-author {
-            font-weight: bold;
-            color: #4b6cb7;
-        }
-
-        .message-time {
-            font-size: 0.9rem;
-            color: #777;
-        }
-
-        .message-content {
-            line-height: 1.5;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-
-        .delete-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 6px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .delete-btn:hover {
-            background: #ff5252;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Supabase 待办事项</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <h1>留言板应用</h1>
-            <p class="subtitle">使用Supabase实现完整的登录功能和留言系统</p>
-        </header>
-
-        <div class="auth-container" id="auth-section">
-            <h2>登录或注册</h2>
-            <div class="auth-form">
-                <div class="input-group">
-                    <input type="email" id="email" placeholder="邮箱地址">
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" placeholder="密码（至少6位）">
-                </div>
-            </div>
-            <button id="login-btn">登录</button>
-            <button id="signup-btn">注册</button>
+        <h1>我的待办事项</h1>
+        <div id="auth-section">
+            <input type="email" id="email" placeholder="邮箱">
+            <input type="password" id="password" placeholder="密码">
+            <button id="sign-up">注册</button>
+            <button id="sign-in">登录</button>
+            <button id="sign-out" class="hidden">登出</button>
         </div>
+        <section id="app" class="hidden">
+            <button id="sign-out-app">登出</button>
+            <h2>待办事项</h2>
+            <form id="todo-form">
+                <input type="text" id="task-input" placeholder="新待办事项">
+                <button type="submit">添加</button>
+            </form>
+            <ul id="todos-list"></ul>
 
-        <div class="user-info hidden" id="user-section">
-            <div>
-                <strong>你好，<span id="username">用户</span></strong>
-                <div id="user-email"></div>
-            </div>
-            <button id="logout-btn">退出登录</button>
-        </div>
-
-        <div class="message-form hidden" id="message-form">
-            <h2>发布留言</h2>
-            <textarea id="content" placeholder="在这里写下你的留言..."></textarea>
-            <button id="post-btn">发布留言</button>
-        </div>
-
-        <div class="messages-container">
-            <h2>留言列表</h2>
-            <div id="messages-list"></div>
-        </div>
-
-        <footer>
-            <p>使用 Supabase 构建 | 初学者友好的全栈应用示例</p>
-        </footer>
+            <section id="storage-section" class="hidden">
+                <h3>文件存储</h3>
+                <input type="file" id="file-input">
+                <button id="upload-button">上传文件</button>
+                <div id="uploaded-files"></div>
+            </section>
+        </section>
     </div>
-
-    <script src="main.js"></script>
+    <!-- 原来的 Supabase CDN 调用方式，已改为本地安装方式 -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+    <!-- 引入本地安装的 Supabase UMD 文件 -->
+    <!-- <script src="./node_modules/@supabase/supabase-js/dist/umd/supabase.js"></script>  -->
+    <!-- <script type="module" src="app.js"></script> -->
 </body>
 
 </html>
